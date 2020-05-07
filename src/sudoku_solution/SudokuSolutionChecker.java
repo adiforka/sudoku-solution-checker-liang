@@ -1,40 +1,12 @@
 package sudoku_solution;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class SudokuSolutionChecker {
-    public static void main(String[] args) throws Exception {
 
-        var checker = new SudokuSolutionChecker();
-
-        int[][] solutionGrid = checker.getSolution("src/sudoku_solution/sudoku solution");
-
-        System.out.println(
-                checker.isValidSolution(solutionGrid) ? "Valid solution" : "Invalid solution");
-    }
-
-    public int[][] getSolution(String path) throws FileNotFoundException {
-
-        File file = new File(path);
-        Scanner scanner = new Scanner(file);
-        int[][] solutionGrid = new int[9][9];
+    public boolean isValid(int[][] grid) {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                solutionGrid[i][j] = scanner.nextInt();
-            }
-        }
-        return solutionGrid;
-    }
-
-    public boolean isValidSolution(int[][] grid) {
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (grid[i][j] < 1 || grid[i][j] > 9 || !isValidSolution(i, j, grid)) {
+                if (grid[i][j] < 1 || grid[i][j] > 9 || !isValid(i, j, grid)) {
                     return false;
                 }
             }
@@ -42,7 +14,7 @@ public class SudokuSolutionChecker {
         return true;
     }
 
-    private boolean isValidSolution(int i, int j, int[][] grid) {
+    private boolean isValid(int i, int j, int[][] grid) {
 
         //checking uniqueness of element in its row
         for (int col = 0; col < 9; col++) {
